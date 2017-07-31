@@ -2,4 +2,4 @@
 
 <portlet:defineObjects />
 
-This is the <b>Feeb Back</b> portlet in View mode.
+This is the <b>Feeb Back hello world</b> portlet in View mode.
