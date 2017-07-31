@@ -3,4 +3,4 @@
 <portlet:defineObjects />
 
 This is the <b>Feeb Back hello world</b> portlet in View mode.
-thank you see you tomorrow
+thank you see you tomorrow2
