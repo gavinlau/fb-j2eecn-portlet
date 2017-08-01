@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+<service-builder package-path="com.j2eecn.fb">
+	<author>Administrator</author>
+	<namespace>fb</namespace>
+
+	<entity name="FeedBack" local-service="true" remote-service="true">
+		<!-- PK fields -->
+		
+		<column name="fbId" type="long" primary="true" />
+		<!-- Group instance -->
+		
+		<column name="groupId" type="long" />
+		<!-- Audit fields -->
+		
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+		<column name="status" type="int"></column>
+		<column name="statusByUserId" type="long"></column>
+		<column name="statusByUserName" type="String"></column>
+		<column name="statusDate" type="Date"></column>
+
+		<!-- Other fields -->
+
+		<column name="content" type="String" />
+		<column name="type" type="int" />
+		<column name="imgURL" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="createDate" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="Type" return-type="Collection">
+			<finder-column name="type" />
+		</finder>
+		
+		<!-- References -->
+		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry"></reference>
+		<reference package-path="com.liferay.portlet.asset" entity="AssetLink"></reference>
+		<reference package-path="com.liferay.portlet.asset" entity="AssetTag"></reference>
+		<reference package-path="com.liferay.portlet.trash" entity="TrashEntry"></reference>
+		<reference package-path="com.liferay.portal" entity="WorkflowInstanceLink"></reference>
+	</entity>
+</service-builder>
