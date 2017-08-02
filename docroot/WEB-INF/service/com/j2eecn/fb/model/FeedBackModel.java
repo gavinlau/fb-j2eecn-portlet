@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.GroupedModel;
+import com.liferay.portal.model.StagedGroupedModel;
 import com.liferay.portal.model.WorkflowedModel;
 import com.liferay.portal.service.ServiceContext;
 
@@ -41,7 +41,7 @@ import java.util.Date;
  * @see com.j2eecn.fb.model.impl.FeedBackModelImpl
  * @generated
  */
-public interface FeedBackModel extends BaseModel<FeedBack>, GroupedModel,
+public interface FeedBackModel extends BaseModel<FeedBack>, StagedGroupedModel,
 	WorkflowedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -62,6 +62,23 @@ public interface FeedBackModel extends BaseModel<FeedBack>, GroupedModel,
 	 * @param primaryKey the primary key of this feed back
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the uuid of this feed back.
+	 *
+	 * @return the uuid of this feed back
+	 */
+	@AutoEscape
+	@Override
+	public String getUuid();
+
+	/**
+	 * Sets the uuid of this feed back.
+	 *
+	 * @param uuid the uuid of this feed back
+	 */
+	@Override
+	public void setUuid(String uuid);
 
 	/**
 	 * Returns the fb ID of this feed back.

@@ -1,6 +1,5 @@
-<%@page import="com.j2eecn.fb.service.FeedBackLocalServiceUtil"%>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ include file="/html/init.jsp" %>
+<%@page import="com.j2eecn.fb.service.FeedBackLocalServiceUtil"%>
 
 <portlet:renderURL var="addRenderURL">
 	<portlet:param name="mvcPath" value="/html/feedback/add.jsp" />
@@ -8,6 +7,7 @@
 <portlet:renderURL var="backRenderURL">
 	<portlet:param name="mvcPath" value="/html/feedback/view.jsp" />
 </portlet:renderURL>
+
 <aui:form name="fbSearchForm" method="post" action="${backRenderURL }">
 	<div class="fb-list">
 		<liferay-ui:search-container var="searchContainer"
@@ -16,7 +16,6 @@
 				<aui:nav>
 					<aui:nav-item href="${addRenderURL }" label="fb-add"
 						iconCssClass="icon-folder-close" />
-						
 				</aui:nav>
 			</aui:nav-bar>
 			<liferay-ui:search-container-results>

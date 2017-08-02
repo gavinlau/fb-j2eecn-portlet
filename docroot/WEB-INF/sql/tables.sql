@@ -1,4 +1,5 @@
 create table fb_FeedBack (
+	uuid_ VARCHAR(75) null,
 	fbId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,

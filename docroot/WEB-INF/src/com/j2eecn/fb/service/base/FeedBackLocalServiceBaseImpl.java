@@ -219,6 +219,34 @@ public abstract class FeedBackLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the feed back with the matching UUID and company.
+	 *
+	 * @param uuid the feed back's UUID
+	 * @param  companyId the primary key of the company
+	 * @return the matching feed back, or <code>null</code> if a matching feed back could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public FeedBack fetchFeedBackByUuidAndCompanyId(String uuid, long companyId)
+		throws SystemException {
+		return feedBackPersistence.fetchByUuid_C_First(uuid, companyId, null);
+	}
+
+	/**
+	 * Returns the feed back matching the UUID and group.
+	 *
+	 * @param uuid the feed back's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching feed back, or <code>null</code> if a matching feed back could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public FeedBack fetchFeedBackByUuidAndGroupId(String uuid, long groupId)
+		throws SystemException {
+		return feedBackPersistence.fetchByUUID_G(uuid, groupId);
+	}
+
+	/**
 	 * Returns the feed back with the primary key.
 	 *
 	 * @param fbId the primary key of the feed back
@@ -236,6 +264,36 @@ public abstract class FeedBackLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return feedBackPersistence.findByPrimaryKey(primaryKeyObj);
+	}
+
+	/**
+	 * Returns the feed back with the matching UUID and company.
+	 *
+	 * @param uuid the feed back's UUID
+	 * @param  companyId the primary key of the company
+	 * @return the matching feed back
+	 * @throws PortalException if a matching feed back could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public FeedBack getFeedBackByUuidAndCompanyId(String uuid, long companyId)
+		throws PortalException, SystemException {
+		return feedBackPersistence.findByUuid_C_First(uuid, companyId, null);
+	}
+
+	/**
+	 * Returns the feed back matching the UUID and group.
+	 *
+	 * @param uuid the feed back's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching feed back
+	 * @throws PortalException if a matching feed back could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public FeedBack getFeedBackByUuidAndGroupId(String uuid, long groupId)
+		throws PortalException, SystemException {
+		return feedBackPersistence.findByUUID_G(uuid, groupId);
 	}
 
 	/**

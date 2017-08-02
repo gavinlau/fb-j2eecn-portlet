@@ -4,7 +4,7 @@
 	<author>Administrator</author>
 	<namespace>fb</namespace>
 
-	<entity name="FeedBack" local-service="true" remote-service="true">
+	<entity name="FeedBack" local-service="true" remote-service="true" uuid="true">
 		<!-- PK fields -->
 		
 		<column name="fbId" type="long" primary="true" />

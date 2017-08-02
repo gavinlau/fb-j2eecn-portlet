@@ -14,6 +14,7 @@
 
 package com.j2eecn.fb.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
@@ -49,6 +50,7 @@ public class FeedBackWrapper implements FeedBack, ModelWrapper<FeedBack> {
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("uuid", getUuid());
 		attributes.put("fbId", getFbId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
@@ -69,6 +71,12 @@ public class FeedBackWrapper implements FeedBack, ModelWrapper<FeedBack> {
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		String uuid = (String)attributes.get("uuid");
+
+		if (uuid != null) {
+			setUuid(uuid);
+		}
+
 		Long fbId = (Long)attributes.get("fbId");
 
 		if (fbId != null) {
@@ -172,6 +180,26 @@ public class FeedBackWrapper implements FeedBack, ModelWrapper<FeedBack> {
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_feedBack.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	* Returns the uuid of this feed back.
+	*
+	* @return the uuid of this feed back
+	*/
+	@Override
+	public java.lang.String getUuid() {
+		return _feedBack.getUuid();
+	}
+
+	/**
+	* Sets the uuid of this feed back.
+	*
+	* @param uuid the uuid of this feed back
+	*/
+	@Override
+	public void setUuid(java.lang.String uuid) {
+		_feedBack.setUuid(uuid);
 	}
 
 	/**
@@ -707,6 +735,11 @@ public class FeedBackWrapper implements FeedBack, ModelWrapper<FeedBack> {
 		}
 
 		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _feedBack.getStagedModelType();
 	}
 
 	/**

@@ -37,9 +37,11 @@ import java.util.Date;
 public class FeedBackCacheModel implements CacheModel<FeedBack>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
-		sb.append("{fbId=");
+		sb.append("{uuid=");
+		sb.append(uuid);
+		sb.append(", fbId=");
 		sb.append(fbId);
 		sb.append(", groupId=");
 		sb.append(groupId);
@@ -75,6 +77,13 @@ public class FeedBackCacheModel implements CacheModel<FeedBack>, Externalizable 
 	@Override
 	public FeedBack toEntityModel() {
 		FeedBackImpl feedBackImpl = new FeedBackImpl();
+
+		if (uuid == null) {
+			feedBackImpl.setUuid(StringPool.BLANK);
+		}
+		else {
+			feedBackImpl.setUuid(uuid);
+		}
 
 		feedBackImpl.setFbId(fbId);
 		feedBackImpl.setGroupId(groupId);
@@ -142,6 +151,7 @@ public class FeedBackCacheModel implements CacheModel<FeedBack>, Externalizable 
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		uuid = objectInput.readUTF();
 		fbId = objectInput.readLong();
 		groupId = objectInput.readLong();
 		companyId = objectInput.readLong();
@@ -161,6 +171,13 @@ public class FeedBackCacheModel implements CacheModel<FeedBack>, Externalizable 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
+		if (uuid == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(uuid);
+		}
+
 		objectOutput.writeLong(fbId);
 		objectOutput.writeLong(groupId);
 		objectOutput.writeLong(companyId);
@@ -204,6 +221,7 @@ public class FeedBackCacheModel implements CacheModel<FeedBack>, Externalizable 
 		}
 	}
 
+	public String uuid;
 	public long fbId;
 	public long groupId;
 	public long companyId;

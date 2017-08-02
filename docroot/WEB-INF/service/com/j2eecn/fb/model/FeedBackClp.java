@@ -19,6 +19,7 @@ import com.j2eecn.fb.service.FeedBackLocalServiceUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -76,6 +77,7 @@ public class FeedBackClp extends BaseModelImpl<FeedBack> implements FeedBack {
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("uuid", getUuid());
 		attributes.put("fbId", getFbId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
@@ -96,6 +98,12 @@ public class FeedBackClp extends BaseModelImpl<FeedBack> implements FeedBack {
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		String uuid = (String)attributes.get("uuid");
+
+		if (uuid != null) {
+			setUuid(uuid);
+		}
+
 		Long fbId = (Long)attributes.get("fbId");
 
 		if (fbId != null) {
@@ -178,6 +186,29 @@ public class FeedBackClp extends BaseModelImpl<FeedBack> implements FeedBack {
 
 		if (imgURL != null) {
 			setImgURL(imgURL);
+		}
+	}
+
+	@Override
+	public String getUuid() {
+		return _uuid;
+	}
+
+	@Override
+	public void setUuid(String uuid) {
+		_uuid = uuid;
+
+		if (_feedBackRemoteModel != null) {
+			try {
+				Class<?> clazz = _feedBackRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUuid", String.class);
+
+				method.invoke(_feedBackRemoteModel, uuid);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
 		}
 	}
 
@@ -525,6 +556,12 @@ public class FeedBackClp extends BaseModelImpl<FeedBack> implements FeedBack {
 		}
 	}
 
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				FeedBack.class.getName()));
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #isApproved}
 	 */
@@ -682,6 +719,7 @@ public class FeedBackClp extends BaseModelImpl<FeedBack> implements FeedBack {
 	public Object clone() {
 		FeedBackClp clone = new FeedBackClp();
 
+		clone.setUuid(getUuid());
 		clone.setFbId(getFbId());
 		clone.setGroupId(getGroupId());
 		clone.setCompanyId(getCompanyId());
@@ -746,9 +784,11 @@ public class FeedBackClp extends BaseModelImpl<FeedBack> implements FeedBack {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
-		sb.append("{fbId=");
+		sb.append("{uuid=");
+		sb.append(getUuid());
+		sb.append(", fbId=");
 		sb.append(getFbId());
 		sb.append(", groupId=");
 		sb.append(getGroupId());
@@ -783,12 +823,16 @@ public class FeedBackClp extends BaseModelImpl<FeedBack> implements FeedBack {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("com.j2eecn.fb.model.FeedBack");
 		sb.append("</model-name>");
 
+		sb.append(
+			"<column><column-name>uuid</column-name><column-value><![CDATA[");
+		sb.append(getUuid());
+		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>fbId</column-name><column-value><![CDATA[");
 		sb.append(getFbId());
@@ -851,6 +895,7 @@ public class FeedBackClp extends BaseModelImpl<FeedBack> implements FeedBack {
 		return sb.toString();
 	}
 
+	private String _uuid;
 	private long _fbId;
 	private long _groupId;
 	private long _companyId;

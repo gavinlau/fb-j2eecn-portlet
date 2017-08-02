@@ -21,6 +21,7 @@ import com.j2eecn.fb.model.FeedBackSoap;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -68,6 +69,7 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 	 */
 	public static final String TABLE_NAME = "fb_FeedBack";
 	public static final Object[][] TABLE_COLUMNS = {
+			{ "uuid_", Types.VARCHAR },
 			{ "fbId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
@@ -83,7 +85,7 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 			{ "type_", Types.INTEGER },
 			{ "imgURL", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table fb_FeedBack (fbId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,content VARCHAR(75) null,type_ INTEGER,imgURL VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table fb_FeedBack (uuid_ VARCHAR(75) null,fbId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,content VARCHAR(75) null,type_ INTEGER,imgURL VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table fb_FeedBack";
 	public static final String ORDER_BY_JPQL = " ORDER BY feedBack.createDate ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY fb_FeedBack.createDate ASC";
@@ -99,8 +101,11 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.j2eecn.fb.model.FeedBack"),
 			true);
-	public static long TYPE_COLUMN_BITMASK = 1L;
-	public static long CREATEDATE_COLUMN_BITMASK = 2L;
+	public static long COMPANYID_COLUMN_BITMASK = 1L;
+	public static long GROUPID_COLUMN_BITMASK = 2L;
+	public static long TYPE_COLUMN_BITMASK = 4L;
+	public static long UUID_COLUMN_BITMASK = 8L;
+	public static long CREATEDATE_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -115,6 +120,7 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 
 		FeedBack model = new FeedBackImpl();
 
+		model.setUuid(soapModel.getUuid());
 		model.setFbId(soapModel.getFbId());
 		model.setGroupId(soapModel.getGroupId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -193,6 +199,7 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("uuid", getUuid());
 		attributes.put("fbId", getFbId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
@@ -213,6 +220,12 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		String uuid = (String)attributes.get("uuid");
+
+		if (uuid != null) {
+			setUuid(uuid);
+		}
+
 		Long fbId = (Long)attributes.get("fbId");
 
 		if (fbId != null) {
@@ -300,6 +313,30 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 
 	@JSON
 	@Override
+	public String getUuid() {
+		if (_uuid == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _uuid;
+		}
+	}
+
+	@Override
+	public void setUuid(String uuid) {
+		if (_originalUuid == null) {
+			_originalUuid = _uuid;
+		}
+
+		_uuid = uuid;
+	}
+
+	public String getOriginalUuid() {
+		return GetterUtil.getString(_originalUuid);
+	}
+
+	@JSON
+	@Override
 	public long getFbId() {
 		return _fbId;
 	}
@@ -317,7 +354,19 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 
 	@Override
 	public void setGroupId(long groupId) {
+		_columnBitmask |= GROUPID_COLUMN_BITMASK;
+
+		if (!_setOriginalGroupId) {
+			_setOriginalGroupId = true;
+
+			_originalGroupId = _groupId;
+		}
+
 		_groupId = groupId;
+	}
+
+	public long getOriginalGroupId() {
+		return _originalGroupId;
 	}
 
 	@JSON
@@ -328,7 +377,19 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 
 	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -507,6 +568,12 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 		_imgURL = imgURL;
 	}
 
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				FeedBack.class.getName()));
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #isApproved}
 	 */
@@ -626,6 +693,7 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 	public Object clone() {
 		FeedBackImpl feedBackImpl = new FeedBackImpl();
 
+		feedBackImpl.setUuid(getUuid());
 		feedBackImpl.setFbId(getFbId());
 		feedBackImpl.setGroupId(getGroupId());
 		feedBackImpl.setCompanyId(getCompanyId());
@@ -690,6 +758,16 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 	public void resetOriginalValues() {
 		FeedBackModelImpl feedBackModelImpl = this;
 
+		feedBackModelImpl._originalUuid = feedBackModelImpl._uuid;
+
+		feedBackModelImpl._originalGroupId = feedBackModelImpl._groupId;
+
+		feedBackModelImpl._setOriginalGroupId = false;
+
+		feedBackModelImpl._originalCompanyId = feedBackModelImpl._companyId;
+
+		feedBackModelImpl._setOriginalCompanyId = false;
+
 		feedBackModelImpl._originalType = feedBackModelImpl._type;
 
 		feedBackModelImpl._setOriginalType = false;
@@ -700,6 +778,14 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 	@Override
 	public CacheModel<FeedBack> toCacheModel() {
 		FeedBackCacheModel feedBackCacheModel = new FeedBackCacheModel();
+
+		feedBackCacheModel.uuid = getUuid();
+
+		String uuid = feedBackCacheModel.uuid;
+
+		if ((uuid != null) && (uuid.length() == 0)) {
+			feedBackCacheModel.uuid = null;
+		}
 
 		feedBackCacheModel.fbId = getFbId();
 
@@ -779,9 +865,11 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
-		sb.append("{fbId=");
+		sb.append("{uuid=");
+		sb.append(getUuid());
+		sb.append(", fbId=");
 		sb.append(getFbId());
 		sb.append(", groupId=");
 		sb.append(getGroupId());
@@ -816,12 +904,16 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("com.j2eecn.fb.model.FeedBack");
 		sb.append("</model-name>");
 
+		sb.append(
+			"<column><column-name>uuid</column-name><column-value><![CDATA[");
+		sb.append(getUuid());
+		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>fbId</column-name><column-value><![CDATA[");
 		sb.append(getFbId());
@@ -888,9 +980,15 @@ public class FeedBackModelImpl extends BaseModelImpl<FeedBack>
 	private static Class<?>[] _escapedModelInterfaces = new Class[] {
 			FeedBack.class
 		};
+	private String _uuid;
+	private String _originalUuid;
 	private long _fbId;
 	private long _groupId;
+	private long _originalGroupId;
+	private boolean _setOriginalGroupId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userUuid;
 	private String _userName;

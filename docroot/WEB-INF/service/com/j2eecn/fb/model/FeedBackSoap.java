@@ -31,6 +31,7 @@ public class FeedBackSoap implements Serializable {
 	public static FeedBackSoap toSoapModel(FeedBack model) {
 		FeedBackSoap soapModel = new FeedBackSoap();
 
+		soapModel.setUuid(model.getUuid());
 		soapModel.setFbId(model.getFbId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
@@ -95,6 +96,14 @@ public class FeedBackSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setFbId(pk);
+	}
+
+	public String getUuid() {
+		return _uuid;
+	}
+
+	public void setUuid(String uuid) {
+		_uuid = uuid;
 	}
 
 	public long getFbId() {
@@ -209,6 +218,7 @@ public class FeedBackSoap implements Serializable {
 		_imgURL = imgURL;
 	}
 
+	private String _uuid;
 	private long _fbId;
 	private long _groupId;
 	private long _companyId;

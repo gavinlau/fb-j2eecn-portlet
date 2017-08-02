@@ -187,6 +187,37 @@ public class FeedBackLocalServiceWrapper implements FeedBackLocalService,
 	}
 
 	/**
+	* Returns the feed back with the matching UUID and company.
+	*
+	* @param uuid the feed back's UUID
+	* @param companyId the primary key of the company
+	* @return the matching feed back, or <code>null</code> if a matching feed back could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.j2eecn.fb.model.FeedBack fetchFeedBackByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _feedBackLocalService.fetchFeedBackByUuidAndCompanyId(uuid,
+			companyId);
+	}
+
+	/**
+	* Returns the feed back matching the UUID and group.
+	*
+	* @param uuid the feed back's UUID
+	* @param groupId the primary key of the group
+	* @return the matching feed back, or <code>null</code> if a matching feed back could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.j2eecn.fb.model.FeedBack fetchFeedBackByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _feedBackLocalService.fetchFeedBackByUuidAndGroupId(uuid, groupId);
+	}
+
+	/**
 	* Returns the feed back with the primary key.
 	*
 	* @param fbId the primary key of the feed back
@@ -207,6 +238,41 @@ public class FeedBackLocalServiceWrapper implements FeedBackLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _feedBackLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the feed back with the matching UUID and company.
+	*
+	* @param uuid the feed back's UUID
+	* @param companyId the primary key of the company
+	* @return the matching feed back
+	* @throws PortalException if a matching feed back could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.j2eecn.fb.model.FeedBack getFeedBackByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _feedBackLocalService.getFeedBackByUuidAndCompanyId(uuid,
+			companyId);
+	}
+
+	/**
+	* Returns the feed back matching the UUID and group.
+	*
+	* @param uuid the feed back's UUID
+	* @param groupId the primary key of the group
+	* @return the matching feed back
+	* @throws PortalException if a matching feed back could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.j2eecn.fb.model.FeedBack getFeedBackByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _feedBackLocalService.getFeedBackByUuidAndGroupId(uuid, groupId);
 	}
 
 	/**
@@ -280,6 +346,19 @@ public class FeedBackLocalServiceWrapper implements FeedBackLocalService,
 		throws java.lang.Throwable {
 		return _feedBackLocalService.invokeMethod(name, parameterTypes,
 			arguments);
+	}
+
+	@Override
+	public com.j2eecn.fb.model.FeedBack addEntry(
+		com.j2eecn.fb.model.FeedBack entry,
+		com.liferay.portal.service.ServiceContext serviceContext) {
+		return _feedBackLocalService.addEntry(entry, serviceContext);
+	}
+
+	@Override
+	public java.lang.String attachFile(long fbId,
+		com.liferay.portal.service.ServiceContext serviceContext) {
+		return _feedBackLocalService.attachFile(fbId, serviceContext);
 	}
 
 	/**

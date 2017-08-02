@@ -14,7 +14,23 @@
 
 package com.j2eecn.fb.service.impl;
 
+import com.j2eecn.fb.model.FeedBack;
 import com.j2eecn.fb.service.base.FeedBackLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.Image;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.ImageLocalService;
+import com.liferay.portal.service.ImageLocalServiceUtil;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.UserLocalServiceUtil;
+
+import java.io.File;
+import java.util.Date;
 
 /**
  * The implementation of the feed back local service.
@@ -36,4 +52,68 @@ public class FeedBackLocalServiceImpl extends FeedBackLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link com.j2eecn.fb.service.FeedBackLocalServiceUtil} to access the feed back local service.
 	 */
+	public FeedBack addEntry(FeedBack entry,ServiceContext serviceContext)
+	{
+		
+		long entryId=0;
+		User user=null;
+		try {
+			 entryId=counterLocalService.increment(FeedBack.class.toString());
+			 user = UserLocalServiceUtil.getUserById(serviceContext.getUserId());
+		} catch (SystemException e) {
+			_log.error(e.getMessage());
+			e.printStackTrace();
+		} catch (PortalException e) {
+			_log.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		long groupId = serviceContext.getScopeGroupId();
+		Date now=new Date();
+		long comanyId=serviceContext.getCompanyId();
+		
+		//pk
+		entry.setFbId(entryId);
+		entry.setUuid(serviceContext.getUuid());
+		
+		//audit five
+		entry.setCompanyId(comanyId);
+		entry.setGroupId(groupId);
+		entry.setUserName(user.getScreenName());
+		entry.setUserId(user.getUserId());
+		entry.setCreateDate(now);
+		entry.setModifiedDate(now);
+		try {
+			this.addFeedBack(entry);
+			String imgURL=this.attachFile(entry.getFbId(), serviceContext);
+			entry.setImgURL(imgURL);
+			
+			this.updateFeedBack(entry);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return entry;
+	}
+	
+	public String attachFile(long fbId,ServiceContext serviceContext)
+	{
+		String target=StringPool.BLANK;
+		File fbImage=(File)serviceContext.getAttribute("FB_IMAGE");
+		if(Validator.isNotNull(fbImage))
+		{
+			try {
+				Image img=ImageLocalServiceUtil.updateImage(fbId,fbImage);
+				ImageLocalServiceUtil.getImage(fbId);
+			} catch (PortalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return target;
+	}
+	private static Log _log=LogFactoryUtil.getLog(FeedBackLocalServiceImpl.class);
 }

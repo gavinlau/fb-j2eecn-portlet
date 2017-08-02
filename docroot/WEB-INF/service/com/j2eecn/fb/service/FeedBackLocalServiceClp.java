@@ -80,33 +80,62 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getFeedBack";
+		_methodName11 = "fetchFeedBackByUuidAndCompanyId";
 
-		_methodParameterTypes11 = new String[] { "long" };
+		_methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-		_methodName12 = "getPersistedModel";
+		_methodName12 = "fetchFeedBackByUuidAndGroupId";
 
-		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes12 = new String[] { "java.lang.String", "long" };
 
-		_methodName13 = "getFeedBacks";
+		_methodName13 = "getFeedBack";
 
-		_methodParameterTypes13 = new String[] { "int", "int" };
+		_methodParameterTypes13 = new String[] { "long" };
 
-		_methodName14 = "getFeedBacksCount";
+		_methodName14 = "getPersistedModel";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes14 = new String[] { "java.io.Serializable" };
 
-		_methodName15 = "updateFeedBack";
+		_methodName15 = "getFeedBackByUuidAndCompanyId";
 
-		_methodParameterTypes15 = new String[] { "com.j2eecn.fb.model.FeedBack" };
+		_methodParameterTypes15 = new String[] { "java.lang.String", "long" };
 
-		_methodName16 = "getBeanIdentifier";
+		_methodName16 = "getFeedBackByUuidAndGroupId";
 
-		_methodParameterTypes16 = new String[] {  };
+		_methodParameterTypes16 = new String[] { "java.lang.String", "long" };
 
-		_methodName17 = "setBeanIdentifier";
+		_methodName17 = "getFeedBacks";
 
-		_methodParameterTypes17 = new String[] { "java.lang.String" };
+		_methodParameterTypes17 = new String[] { "int", "int" };
+
+		_methodName18 = "getFeedBacksCount";
+
+		_methodParameterTypes18 = new String[] {  };
+
+		_methodName19 = "updateFeedBack";
+
+		_methodParameterTypes19 = new String[] { "com.j2eecn.fb.model.FeedBack" };
+
+		_methodName20 = "getBeanIdentifier";
+
+		_methodParameterTypes20 = new String[] {  };
+
+		_methodName21 = "setBeanIdentifier";
+
+		_methodParameterTypes21 = new String[] { "java.lang.String" };
+
+		_methodName23 = "addEntry";
+
+		_methodParameterTypes23 = new String[] {
+				"com.j2eecn.fb.model.FeedBack",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName24 = "attachFile";
+
+		_methodParameterTypes24 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	@Override
@@ -451,14 +480,74 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 	}
 
 	@Override
+	public com.j2eecn.fb.model.FeedBack fetchFeedBackByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName11,
+					_methodParameterTypes11,
+					new Object[] { ClpSerializer.translateInput(uuid), companyId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.j2eecn.fb.model.FeedBack)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.j2eecn.fb.model.FeedBack fetchFeedBackByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
+					new Object[] { ClpSerializer.translateInput(uuid), groupId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.j2eecn.fb.model.FeedBack)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public com.j2eecn.fb.model.FeedBack getFeedBack(long fbId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11, new Object[] { fbId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName13,
+					_methodParameterTypes13, new Object[] { fbId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -491,8 +580,8 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName12,
-					_methodParameterTypes12,
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -519,14 +608,84 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 	}
 
 	@Override
+	public com.j2eecn.fb.model.FeedBack getFeedBackByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName15,
+					_methodParameterTypes15,
+					new Object[] { ClpSerializer.translateInput(uuid), companyId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.j2eecn.fb.model.FeedBack)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.j2eecn.fb.model.FeedBack getFeedBackByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName16,
+					_methodParameterTypes16,
+					new Object[] { ClpSerializer.translateInput(uuid), groupId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.j2eecn.fb.model.FeedBack)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public java.util.List<com.j2eecn.fb.model.FeedBack> getFeedBacks(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] { start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName17,
+					_methodParameterTypes17, new Object[] { start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -553,8 +712,8 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName14,
-					_methodParameterTypes14, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName18,
+					_methodParameterTypes18, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -582,8 +741,8 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName15,
-					_methodParameterTypes15,
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
 					new Object[] { ClpSerializer.translateInput(feedBack) });
 		}
 		catch (Throwable t) {
@@ -610,8 +769,8 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName16,
-					_methodParameterTypes16, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -631,8 +790,8 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
-			_invokableLocalService.invokeMethod(_methodName17,
-				_methodParameterTypes17,
+			_invokableLocalService.invokeMethod(_methodName21,
+				_methodParameterTypes21,
 				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
 		}
 		catch (Throwable t) {
@@ -653,6 +812,65 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public com.j2eecn.fb.model.FeedBack addEntry(
+		com.j2eecn.fb.model.FeedBack entry,
+		com.liferay.portal.service.ServiceContext serviceContext) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
+					new Object[] {
+						ClpSerializer.translateInput(entry),
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.j2eecn.fb.model.FeedBack)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.lang.String attachFile(long fbId,
+		com.liferay.portal.service.ServiceContext serviceContext) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
+					new Object[] {
+						fbId,
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
 	private InvokableLocalService _invokableLocalService;
@@ -692,4 +910,16 @@ public class FeedBackLocalServiceClp implements FeedBackLocalService {
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
 	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 }

@@ -173,6 +173,32 @@ public interface FeedBackLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Returns the feed back with the matching UUID and company.
+	*
+	* @param uuid the feed back's UUID
+	* @param companyId the primary key of the company
+	* @return the matching feed back, or <code>null</code> if a matching feed back could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.j2eecn.fb.model.FeedBack fetchFeedBackByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the feed back matching the UUID and group.
+	*
+	* @param uuid the feed back's UUID
+	* @param groupId the primary key of the group
+	* @return the matching feed back, or <code>null</code> if a matching feed back could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.j2eecn.fb.model.FeedBack fetchFeedBackByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns the feed back with the primary key.
 	*
 	* @param fbId the primary key of the feed back
@@ -189,6 +215,36 @@ public interface FeedBackLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the feed back with the matching UUID and company.
+	*
+	* @param uuid the feed back's UUID
+	* @param companyId the primary key of the company
+	* @return the matching feed back
+	* @throws PortalException if a matching feed back could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.j2eecn.fb.model.FeedBack getFeedBackByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the feed back matching the UUID and group.
+	*
+	* @param uuid the feed back's UUID
+	* @param groupId the primary key of the group
+	* @return the matching feed back
+	* @throws PortalException if a matching feed back could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.j2eecn.fb.model.FeedBack getFeedBackByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -249,4 +305,11 @@ public interface FeedBackLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public com.j2eecn.fb.model.FeedBack addEntry(
+		com.j2eecn.fb.model.FeedBack entry,
+		com.liferay.portal.service.ServiceContext serviceContext);
+
+	public java.lang.String attachFile(long fbId,
+		com.liferay.portal.service.ServiceContext serviceContext);
 }

@@ -80,33 +80,62 @@ public class FeedBackLocalServiceClpInvoker {
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getFeedBack";
+		_methodName11 = "fetchFeedBackByUuidAndCompanyId";
 
-		_methodParameterTypes11 = new String[] { "long" };
+		_methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-		_methodName12 = "getPersistedModel";
+		_methodName12 = "fetchFeedBackByUuidAndGroupId";
 
-		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes12 = new String[] { "java.lang.String", "long" };
 
-		_methodName13 = "getFeedBacks";
+		_methodName13 = "getFeedBack";
 
-		_methodParameterTypes13 = new String[] { "int", "int" };
+		_methodParameterTypes13 = new String[] { "long" };
 
-		_methodName14 = "getFeedBacksCount";
+		_methodName14 = "getPersistedModel";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes14 = new String[] { "java.io.Serializable" };
 
-		_methodName15 = "updateFeedBack";
+		_methodName15 = "getFeedBackByUuidAndCompanyId";
 
-		_methodParameterTypes15 = new String[] { "com.j2eecn.fb.model.FeedBack" };
+		_methodParameterTypes15 = new String[] { "java.lang.String", "long" };
 
-		_methodName60 = "getBeanIdentifier";
+		_methodName16 = "getFeedBackByUuidAndGroupId";
 
-		_methodParameterTypes60 = new String[] {  };
+		_methodParameterTypes16 = new String[] { "java.lang.String", "long" };
 
-		_methodName61 = "setBeanIdentifier";
+		_methodName17 = "getFeedBacks";
 
-		_methodParameterTypes61 = new String[] { "java.lang.String" };
+		_methodParameterTypes17 = new String[] { "int", "int" };
+
+		_methodName18 = "getFeedBacksCount";
+
+		_methodParameterTypes18 = new String[] {  };
+
+		_methodName19 = "updateFeedBack";
+
+		_methodParameterTypes19 = new String[] { "com.j2eecn.fb.model.FeedBack" };
+
+		_methodName64 = "getBeanIdentifier";
+
+		_methodParameterTypes64 = new String[] {  };
+
+		_methodName65 = "setBeanIdentifier";
+
+		_methodParameterTypes65 = new String[] { "java.lang.String" };
+
+		_methodName70 = "addEntry";
+
+		_methodParameterTypes70 = new String[] {
+				"com.j2eecn.fb.model.FeedBack",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName71 = "attachFile";
+
+		_methodParameterTypes71 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -174,40 +203,76 @@ public class FeedBackLocalServiceClpInvoker {
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return FeedBackLocalServiceUtil.getFeedBack(((Long)arguments[0]).longValue());
+			return FeedBackLocalServiceUtil.fetchFeedBackByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return FeedBackLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return FeedBackLocalServiceUtil.fetchFeedBackByUuidAndGroupId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return FeedBackLocalServiceUtil.getFeedBacks(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return FeedBackLocalServiceUtil.getFeedBack(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return FeedBackLocalServiceUtil.getFeedBacksCount();
+			return FeedBackLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
+			return FeedBackLocalServiceUtil.getFeedBackByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName16.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
+			return FeedBackLocalServiceUtil.getFeedBackByUuidAndGroupId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			return FeedBackLocalServiceUtil.getFeedBacks(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
+			return FeedBackLocalServiceUtil.getFeedBacksCount();
+		}
+
+		if (_methodName19.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
 			return FeedBackLocalServiceUtil.updateFeedBack((com.j2eecn.fb.model.FeedBack)arguments[0]);
 		}
 
-		if (_methodName60.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 			return FeedBackLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			FeedBackLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
+		}
+
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+			return FeedBackLocalServiceUtil.addEntry((com.j2eecn.fb.model.FeedBack)arguments[0],
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
+		}
+
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+			return FeedBackLocalServiceUtil.attachFile(((Long)arguments[0]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -245,8 +310,20 @@ public class FeedBackLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName60;
-	private String[] _methodParameterTypes60;
-	private String _methodName61;
-	private String[] _methodParameterTypes61;
+	private String _methodName16;
+	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName64;
+	private String[] _methodParameterTypes64;
+	private String _methodName65;
+	private String[] _methodParameterTypes65;
+	private String _methodName70;
+	private String[] _methodParameterTypes70;
+	private String _methodName71;
+	private String[] _methodParameterTypes71;
 }
