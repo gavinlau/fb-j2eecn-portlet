@@ -27,7 +27,14 @@
 				%>
 			</liferay-ui:search-container-results>
 			<liferay-ui:search-container-row className="com.j2eecn.fb.model.FeedBack" keyProperty="fbId" modelVar="entry">
-				<liferay-ui:search-container-column-text property="rpName" name="fb-userName"/>
+			<%
+			   
+				String imgURL=themeDisplay.getPathImage()+entry.getImgURL();
+			
+			%>
+			    <liferay-ui:search-container-column-text property="type" name="fb-type"/>
+				<liferay-ui:search-container-column-text property="content" name="fb-content"/>
+				<liferay-ui:search-container-column-text value="<%=imgURL %>" name="fb-imageURL"/>
 			</liferay-ui:search-container-row>
 			<liferay-ui:search-iterator />
 		</liferay-ui:search-container>

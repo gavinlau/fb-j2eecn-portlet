@@ -2,6 +2,7 @@ package com.j2eecn.fb;
 
 import com.j2eecn.fb.model.FeedBack;
 import com.j2eecn.fb.model.impl.FeedBackImpl;
+import com.j2eecn.fb.service.FeedBackLocalServiceUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -62,10 +63,10 @@ import com.liferay.util.portlet.PortletProps;
 /**
  * Portlet implementation class FeebBackPortlet
  */
-public class FeebBackPortlet extends MVCPortlet {
+public class FeedBackPortlet extends MVCPortlet {
 	public void addFB(ActionRequest actionRequest, ActionResponse actionResponse)
 			throws IOException, PortletException {
-		_log.info("In addRPBook Method");
+		_log.info("com.j2eecn.fb-In FeedBackPortlet");
 		ServiceContext serviceContext = null;
 		try {
 			serviceContext = ServiceContextFactory.getInstance(
@@ -91,9 +92,8 @@ public class FeebBackPortlet extends MVCPortlet {
 			e2.printStackTrace();
 		}
 		
-		//process Entry
-		FeedBack entry=new FeedBackImpl();
-		 entry.setCompanyId(serviceContext.getCompanyId());
+		
+		
 		 
 		 
 		//process image
@@ -104,10 +104,19 @@ public class FeebBackPortlet extends MVCPortlet {
 			serviceContext.setAttribute("FB_IMAGE", fbFile);
 		}
 		
+		//process Entry
+		FeedBack entry=new FeedBackImpl();
+		String content = ParamUtil.getString(actionRequest, "content");
+		int type = ParamUtil.getInteger(actionRequest, "type");
+		entry.setContent(content);
+		entry.setType(type);
+		
+		FeedBackLocalServiceUtil.addEntry(entry, serviceContext);
+		
 		//redirect 
 		String redirectURL=ParamUtil.getString(upLoadResult, "redirectURL");
 		actionResponse.sendRedirect(redirectURL);
 		
 	}
-	private static Log _log = LogFactoryUtil.getLog(FeebBackPortlet.class);
+	private static Log _log = LogFactoryUtil.getLog(FeedBackPortlet.class);
 }

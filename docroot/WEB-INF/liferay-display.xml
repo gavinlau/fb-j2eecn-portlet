@@ -4,6 +4,6 @@
 <display>
 	
 	<category name="category.sample">
-		<portlet id="feeb-back"></portlet>
+		<portlet id="feed-back"></portlet>
 	</category>
 </display>

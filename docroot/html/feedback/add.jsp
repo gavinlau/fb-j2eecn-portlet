@@ -12,13 +12,19 @@
 
 <aui:form name="fbAddForm" enctype="multipart/form-data" method="post" action="${addFBActionURL }">
 	<div class="row-fluid">
-	   <aui:fieldset cssClass="span5">
-	        <aui:input label="fb-desc" name="content">
+	  <aui:fieldset cssClass="span3">
+            <aui:field-wrapper name="type" required="true"> 
+			<aui:input inlineLabel="right" name="type" type="radio" value="1" label="fb-sys-error" checked="true" /> 
+			<aui:input inlineLabel="right" name="type" type="radio" value="2" label="fb-func-sug" /> 
+			</aui:field-wrapper>
+        </aui:fieldset>
+	   <aui:fieldset cssClass="span3">
+	        <aui:input label="fb-content" name="content">
 	          <aui:validator name="required"/>
 	         </aui:input>
         </aui:fieldset>
-	    <aui:fieldset cssClass="span5">
-            <aui:input label="" name="fbFile" type="file">
+	    <aui:fieldset cssClass="span4">
+            <aui:input label="" name="fbFile" type="file" accept="image/*">
 	        </aui:input>
         </aui:fieldset>
        

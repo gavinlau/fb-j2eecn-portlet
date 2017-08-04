@@ -20,14 +20,17 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Image;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ImageLocalService;
 import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.theme.ThemeDisplay;
 
 import java.io.File;
 import java.util.Date;
@@ -83,6 +86,8 @@ public class FeedBackLocalServiceImpl extends FeedBackLocalServiceBaseImpl {
 		entry.setUserId(user.getUserId());
 		entry.setCreateDate(now);
 		entry.setModifiedDate(now);
+		
+		
 		try {
 			this.addFeedBack(entry);
 			String imgURL=this.attachFile(entry.getFbId(), serviceContext);
@@ -103,8 +108,10 @@ public class FeedBackLocalServiceImpl extends FeedBackLocalServiceBaseImpl {
 		if(Validator.isNotNull(fbImage))
 		{
 			try {
+				//themeDisplay.getPathImage()
+				//http://10.5.27.9:8080/image/feedback/?image_id=101
 				Image img=ImageLocalServiceUtil.updateImage(fbId,fbImage);
-				ImageLocalServiceUtil.getImage(fbId);
+				target="/feedback/?image_id="+fbId;
 			} catch (PortalException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
