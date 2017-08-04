@@ -3,12 +3,12 @@
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	
 	<portlet>
-		<portlet-name>feeb-back</portlet-name>
-		<display-name>Feeb Back</display-name>
-		<portlet-class>com.j2eecn.fb.FeebBackPortlet</portlet-class>
+		<portlet-name>feed-back</portlet-name>
+		<display-name>Feed Back</display-name>
+		<portlet-class>com.j2eecn.fb.FeedBackPortlet</portlet-class>
 		<init-param>
 			<name>view-template</name>
-			<value>/html/feebback/view.jsp</value>
+			<value>/html/feedback/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -17,7 +17,7 @@
 		</supports>
 		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
-			<title>Feeb Back</title>
+			<title>Feed Back</title>
 			<short-title>Feeb Back</short-title>
 			<keywords></keywords>
 		</portlet-info>
