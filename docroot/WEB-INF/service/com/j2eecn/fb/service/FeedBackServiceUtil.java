@@ -63,6 +63,13 @@ public class FeedBackServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static void addEntry(com.j2eecn.fb.model.FeedBack entry,
+		com.liferay.portal.service.ServiceContext serviceContext, byte[] bytes)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().addEntry(entry, serviceContext, bytes);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

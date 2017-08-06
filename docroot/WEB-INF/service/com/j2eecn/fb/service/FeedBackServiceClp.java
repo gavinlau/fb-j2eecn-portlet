@@ -31,6 +31,13 @@ public class FeedBackServiceClp implements FeedBackService {
 		_methodName1 = "setBeanIdentifier";
 
 		_methodParameterTypes1 = new String[] { "java.lang.String" };
+
+		_methodName3 = "addEntry";
+
+		_methodParameterTypes3 = new String[] {
+				"com.j2eecn.fb.model.FeedBack",
+				"com.liferay.portal.service.ServiceContext", "byte[][]"
+			};
 	}
 
 	@Override
@@ -83,9 +90,48 @@ public class FeedBackServiceClp implements FeedBackService {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void addEntry(com.j2eecn.fb.model.FeedBack entry,
+		com.liferay.portal.service.ServiceContext serviceContext, byte[] bytes)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableService.invokeMethod(_methodName3,
+				_methodParameterTypes3,
+				new Object[] {
+					ClpSerializer.translateInput(entry),
+					
+				ClpSerializer.translateInput(serviceContext),
+					
+				ClpSerializer.translateInput(bytes)
+				});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
 	private String _methodName1;
 	private String[] _methodParameterTypes1;
+	private String _methodName3;
+	private String[] _methodParameterTypes3;
 }

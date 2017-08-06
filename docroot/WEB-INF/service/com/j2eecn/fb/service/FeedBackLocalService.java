@@ -312,4 +312,9 @@ public interface FeedBackLocalService extends BaseLocalService,
 
 	public java.lang.String attachFile(long fbId,
 		com.liferay.portal.service.ServiceContext serviceContext);
+
+	public void addEntry(com.j2eecn.fb.model.FeedBack entry,
+		com.liferay.portal.service.ServiceContext serviceContext, byte[] bytes)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

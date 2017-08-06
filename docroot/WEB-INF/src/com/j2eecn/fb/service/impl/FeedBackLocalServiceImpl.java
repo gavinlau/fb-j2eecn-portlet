@@ -16,11 +16,17 @@ package com.j2eecn.fb.service.impl;
 
 import com.j2eecn.fb.model.FeedBack;
 import com.j2eecn.fb.service.base.FeedBackLocalServiceBaseImpl;
+import com.liferay.portal.UserPortraitSizeException;
+import com.liferay.portal.UserPortraitTypeException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.image.ImageBag;
+import com.liferay.portal.kernel.image.ImageToolUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PrefsPropsUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -31,8 +37,11 @@ import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.documentlibrary.ImageSizeException;
 
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -121,6 +130,83 @@ public class FeedBackLocalServiceImpl extends FeedBackLocalServiceBaseImpl {
 			}
 		}
 		return target;
+	}
+	
+	public void addEntry(FeedBack entry,ServiceContext serviceContext,byte[] bytes)throws PortalException, SystemException
+	{
+
+		long entryId=0;
+		User user=null;
+		try {
+			 entryId=counterLocalService.increment(FeedBack.class.toString());
+			 user = UserLocalServiceUtil.getUserById(serviceContext.getUserId());
+		} catch (SystemException e) {
+			_log.error(e.getMessage());
+			e.printStackTrace();
+		} catch (PortalException e) {
+			_log.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		long groupId = serviceContext.getScopeGroupId();
+		Date now=new Date();
+		long comanyId=serviceContext.getCompanyId();
+		
+		//pk
+		entry.setFbId(entryId);
+		entry.setUuid(serviceContext.getUuid());
+		
+		//audit five
+		entry.setCompanyId(comanyId);
+		entry.setGroupId(groupId);
+		entry.setUserName(user.getScreenName());
+		entry.setUserId(user.getUserId());
+		entry.setCreateDate(now);
+		entry.setModifiedDate(now);
+		
+		long imageId=0;
+		
+		
+		try {
+			long imageMaxSize = PrefsPropsUtil.getLong(
+					PropsKeys.USERS_IMAGE_MAX_SIZE);
+
+				if ((imageMaxSize > 0) &&
+					((bytes == null) || (bytes.length > imageMaxSize))) {
+
+					throw new UserPortraitSizeException();
+				}
+				
+			ImageBag imageBag = ImageToolUtil.read(bytes);
+
+			RenderedImage renderedImage = imageBag.getRenderedImage();
+
+			if (renderedImage == null) {
+				throw new UserPortraitTypeException();
+			}
+
+			renderedImage = ImageToolUtil.scale(
+				renderedImage, 120,
+				100);
+
+			String contentType = imageBag.getType();
+
+			Image image=ImageLocalServiceUtil.updateImage(
+					entryId,
+				ImageToolUtil.getBytes(renderedImage, contentType));
+			imageId=image.getImageId();
+		}
+		catch (IOException ioe) {
+			throw new ImageSizeException(ioe);
+		}
+		
+		try {
+			entry.setImgURL(imageId+"");
+			this.addFeedBack(entry);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	private static Log _log=LogFactoryUtil.getLog(FeedBackLocalServiceImpl.class);
 }

@@ -136,6 +136,13 @@ public class FeedBackLocalServiceClpInvoker {
 		_methodParameterTypes71 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
+
+		_methodName72 = "addEntry";
+
+		_methodParameterTypes72 = new String[] {
+				"com.j2eecn.fb.model.FeedBack",
+				"com.liferay.portal.service.ServiceContext", "byte[][]"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -275,6 +282,15 @@ public class FeedBackLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
+		if (_methodName72.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+			FeedBackLocalServiceUtil.addEntry((com.j2eecn.fb.model.FeedBack)arguments[0],
+				(com.liferay.portal.service.ServiceContext)arguments[1],
+				(byte[])arguments[2]);
+
+			return null;
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -326,4 +342,6 @@ public class FeedBackLocalServiceClpInvoker {
 	private String[] _methodParameterTypes70;
 	private String _methodName71;
 	private String[] _methodParameterTypes71;
+	private String _methodName72;
+	private String[] _methodParameterTypes72;
 }

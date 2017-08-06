@@ -56,6 +56,14 @@ public class FeedBackServiceWrapper implements FeedBackService,
 		return _feedBackService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public void addEntry(com.j2eecn.fb.model.FeedBack entry,
+		com.liferay.portal.service.ServiceContext serviceContext, byte[] bytes)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_feedBackService.addEntry(entry, serviceContext, bytes);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

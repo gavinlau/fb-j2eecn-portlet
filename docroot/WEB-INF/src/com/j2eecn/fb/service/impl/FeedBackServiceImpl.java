@@ -14,7 +14,26 @@
 
 package com.j2eecn.fb.service.impl;
 
+import com.j2eecn.fb.model.FeedBack;
 import com.j2eecn.fb.service.base.FeedBackServiceBaseImpl;
+import com.liferay.portal.UserPortraitSizeException;
+import com.liferay.portal.UserPortraitTypeException;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.image.ImageBag;
+import com.liferay.portal.kernel.image.ImageToolUtil;
+import com.liferay.portal.kernel.util.PrefsPropsUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.model.Image;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.ImageLocalServiceUtil;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.ImageSizeException;
+
+import java.awt.image.RenderedImage;
+import java.io.IOException;
+import java.util.Date;
 
 /**
  * The implementation of the feed back remote service.
@@ -36,4 +55,8 @@ public class FeedBackServiceImpl extends FeedBackServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link com.j2eecn.fb.service.FeedBackServiceUtil} to access the feed back remote service.
 	 */
+	public void addEntry(FeedBack entry,ServiceContext serviceContext,byte[] bytes)throws PortalException, SystemException
+	{
+		 feedBackLocalService.addEntry(entry, serviceContext, bytes);
+	}
 }

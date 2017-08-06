@@ -14,6 +14,13 @@
 
 package com.j2eecn.fb.service.http;
 
+import com.j2eecn.fb.service.FeedBackServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.j2eecn.fb.service.FeedBackServiceUtil} service utility. The
@@ -55,4 +62,19 @@ package com.j2eecn.fb.service.http;
  * @generated
  */
 public class FeedBackServiceSoap {
+	public static void addEntry(com.j2eecn.fb.model.FeedBackSoap entry,
+		com.liferay.portal.service.ServiceContext serviceContext, byte[] bytes)
+		throws RemoteException {
+		try {
+			FeedBackServiceUtil.addEntry(com.j2eecn.fb.model.impl.FeedBackModelImpl.toModel(
+					entry), serviceContext, bytes);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(FeedBackServiceSoap.class);
 }

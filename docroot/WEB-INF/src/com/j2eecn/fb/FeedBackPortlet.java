@@ -91,11 +91,7 @@ public class FeedBackPortlet extends MVCPortlet {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
-		
-		
-		 
-		 
+	
 		//process image
 		UploadPortletRequest upLoadResult=PortalUtil.getUploadPortletRequest(actionRequest);
 		java.io.File fbFile=upLoadResult.getFile("fbFile");
